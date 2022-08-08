@@ -29,9 +29,9 @@ header {
 
 button {
     padding: 15px;
-    background-color: aquamarine;
-    color: red;
-    text-shadow: 1px 1px 1px #000;
+    background-color: dimgrey;
+    color: lightpink;
+    text-shadow: 2px 2px 1px indigo;
     margin-top: 40px;
     margin-left: 100px;
 
