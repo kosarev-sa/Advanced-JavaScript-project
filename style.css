@@ -1,0 +1,57 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    grid-template-rows: max-content auto;
+    gap: 60px;
+    display: grid;
+}
+
+header {
+    height: 100px;
+    display: grid;
+    background-color: gray;
+    margin-top: 40px;
+}
+
+.title {
+    color: red;
+    padding: 10px;
+    text-shadow: 3px 3px 3px #000;
+    text-align: center;
+}
+
+.actions {
+    padding: 10px;
+}
+
+button {
+    padding: 15px;
+    background-color: dimgrey;
+    color: lightpink;
+    text-shadow: 2px 2px 1px indigo;
+    margin-top: 40px;
+    margin-left: 100px;
+
+}
+
+.goods-list {
+    display: flex;
+    justify-content: center;
+    text-align: right;
+    gap: 40px;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.goods-item {
+    width: 250px;
+    height: 250px;
+    padding: 10px;
+    box-sizing: border-box;
+    outline: 2px solid gray;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
