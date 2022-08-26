@@ -22,115 +22,155 @@
 //    },
 //];
 
-const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/';
+const GET_GOODS_ITEMS = `${API_URL}catalogData.json`
 
-//function makeGETRequest(url, callback) {
-//    var xhr;
-//    if(window.XMLHttpRequest) {
-//        xhr =new XMLHttpRequest();
-//        }
-//    else if(window.ActiveXObject) {
-//        xhr = new ActiveXObject("Microsoft.XMLHTTP");
-//        }
-//    xhr.onreadystatechange = function() {
-//    if(xhr.readyState === 4) {
-//        callback(xhr.responseText);
-//        }
-//    }
-//    xhr.open('GET', url, true);
-//    xhr.send();
-//}
-
-function makeGETRequest(url) {
-    return new Promise((resolve, reject) => {
-        var xhr;
-        if (window.XMLHttpRequest) {
-            xhr =new XMLHttpRequest();
-            }
-        else if (window.ActiveXObject) {
-            xhr = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    resolve(xhr.responseText);
-                } else {
-                    reject(`'Error, xhr.status = ${xhr.status}'`);
-                }
-            }
-        };
-        xhr.onerror = function (error) {
-            reject(err);
-        };
-        xhr.open('GET', url, true);
-        xhr.send();
-    });
-    }
-
-class GoodsItem {
-    constructor({product_name = 'wickerwork', price = 0, matter = 'withe', img_url}) {
-        this.title = product_name;
-        this.price = price;
-        this.matter = matter;
-        this.image_style = "background-image: url(\'" + img_url + "\'); background-size: 100%"
-    }
-
-    render() {
-        return `
-    <div class="goods-item" style="${this.image_style}">
-      <h3>${this.title}</h3>
-      <h4>${this.matter}</h4>
-      <p>${this.price}</p>
-    </div>
-  `;
-    }
+function service(url) {
+    return fetch(url)
+        .then((res) => res.json())
 }
 
-class GoodsList {
-    items = [];
-
-//    fetchGoods() {
-//        this.items = goods;
-//    }
-
-//    fetchGoods(cb) {
-//        makeGETRequest(`${API_URL}/catalogData.json`).then(
-//        (goods) => {
-//            this.items = JSON.parse(goods);
-//            cb()
-//        },
-//        (error) => {
-//            console.log(error)
-//        });
-//    }
-
-        fetchGoods() {
-        return makeGETRequest(`${API_URL}/catalogData.json`).then(
-        (goods) => {
-            this.items = JSON.parse(goods);
+function init() {
+    const app = new Vue({
+        el: '#app',
+        data: {
+            items: [],
+            searchLine: '',
+            isVisibleCart: false
         },
-        (error) => {
-            console.log(error)
-        });
-    }
-
-    render() {
-        const goods = this.items.map(item => {
-            const goodItem = new GoodsItem(item);
-            return goodItem.render()
-        }).join('');
-        document.querySelector('.goods-list').innerHTML = goods;
-    }
-
-    calculateTotalPrice() {
-        return this.items.reduce((total, amount) => {return total + amount.price;}, 0)
-    }
+        methods: {
+            setCartDisplay() {
+                this.isVisibleCart = !this.isVisibleCart
+            },
+            fetchGoods() {
+                service(GET_GOODS_ITEMS).then((data) => {
+                    this.items = data;
+                });
+            },
+        },
+        computed: {
+            calculatePrice() {
+                return this.items.reduce((total, { price }) => {
+                    return total + price;
+                }, 0)
+            }
+        },
+        mounted() {
+            this.fetchGoods();
+        }
+    })
 }
+window.onload = init
 
-const goodsList = new GoodsList();
-//goodsList.fetchGoods(() => {
-//    goodsList.render();
-//});
-goodsList.fetchGoods().then(() => {
-    goodsList.render();
-});
+
+//
+// //function makeGETRequest(url, callback) {
+// //    var xhr;
+// //    if(window.XMLHttpRequest) {
+// //        xhr =new XMLHttpRequest();
+// //        }
+// //    else if(window.ActiveXObject) {
+// //        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+// //        }
+// //    xhr.onreadystatechange = function() {
+// //    if(xhr.readyState === 4) {
+// //        callback(xhr.responseText);
+// //        }
+// //    }
+// //    xhr.open('GET', url, true);
+// //    xhr.send();
+// //}
+//
+// function makeGETRequest(url) {
+//     return new Promise((resolve, reject) => {
+//         var xhr;
+//         if (window.XMLHttpRequest) {
+//             xhr =new XMLHttpRequest();
+//             }
+//         else if (window.ActiveXObject) {
+//             xhr = new ActiveXObject("Microsoft.XMLHTTP");
+//             }
+//         xhr.onreadystatechange = function () {
+//             if (xhr.readyState === 4) {
+//                 if (xhr.status === 200) {
+//                     resolve(xhr.responseText);
+//                 } else {
+//                     reject(`'Error, xhr.status = ${xhr.status}'`);
+//                 }
+//             }
+//         };
+//         xhr.onerror = function (error) {
+//             reject(err);
+//         };
+//         xhr.open('GET', url, true);
+//         xhr.send();
+//     });
+//     }
+//
+// class GoodsItem {
+//     constructor({product_name = 'wickerwork', price = 0, matter = 'withe', img_url}) {
+//         this.title = product_name;
+//         this.price = price;
+//         this.matter = matter;
+//         this.image_style = "background-image: url(\'" + img_url + "\'); background-size: 100%"
+//     }
+//
+//     render() {
+//         return `
+//     <div class="goods-item" style="${this.image_style}">
+//       <h3>${this.title}</h3>
+//       <h4>${this.matter}</h4>
+//       <p>${this.price}</p>
+//     </div>
+//   `;
+//     }
+// }
+//
+// class GoodsList {
+//     items = [];
+//
+// //    fetchGoods() {
+// //        this.items = goods;
+// //    }
+//
+// //    fetchGoods(cb) {
+// //        makeGETRequest(`${API_URL}/catalogData.json`).then(
+// //        (goods) => {
+// //            this.items = JSON.parse(goods);
+// //            cb()
+// //        },
+// //        (error) => {
+// //            console.log(error)
+// //        });
+// //    }
+//
+//         fetchGoods() {
+//         return makeGETRequest(`${API_URL}/catalogData.json`).then(
+//         (goods) => {
+//             this.items = JSON.parse(goods);
+//         },
+//         (error) => {
+//             console.log(error)
+//         });
+//     }
+//
+//     render() {
+//         const goods = this.items.map(item => {
+//             const goodItem = new GoodsItem(item);
+//             return goodItem.render()
+//         }).join('');
+//         document.querySelector('.goods-list').innerHTML = goods;
+//     }
+//
+//     calculateTotalPrice() {
+//         return this.items.reduce((total, amount) => {return total + amount.price;}, 0)
+//     }
+// }
+//
+// const goodsList = new GoodsList();
+// //goodsList.fetchGoods(() => {
+// //    goodsList.render();
+// //});
+// goodsList.fetchGoods().then(() => {
+//     goodsList.render();
+// });

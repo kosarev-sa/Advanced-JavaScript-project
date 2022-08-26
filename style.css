@@ -3,7 +3,12 @@
     margin: 0;
 }
 
-body {
+html, body, #app {
+    width: 100%;
+    height: 100%;
+}
+
+#app {
     grid-template-rows: max-content auto;
     gap: 60px;
     display: grid;
@@ -28,13 +33,12 @@ header {
 }
 
 button {
-    padding: 15px;
+    padding: 5px;
     background-color: dimgrey;
     color: lightpink;
     text-shadow: 2px 2px 1px indigo;
-    margin-top: 40px;
-    margin-left: 100px;
-
+    /*margin-top: 40px;*/
+    /*margin-left: 100px;*/
 }
 
 .goods-list {
@@ -54,4 +58,65 @@ button {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.goods-search {
+    height: 36px
+}
+
+.fixed-area {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0, 0.5);
+}
+
+.basket-card {
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    display: grid;
+    grid-template-rows: max-content auto;
+}
+
+.basket-card__header {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto max-content;
+}
+
+.basket-card__header__title {
+    padding: 10px
+}
+
+.basket-card__header__delete-icon {
+    background-image: url("pics/kindpng_2004862.png");
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.basket-card__content {
+    padding: 10px;
+}
+
+.basket-item {
+    padding: 10px;
+    display: flex;
+    gap: 30px
+}
+.basket-item__title {
+    font-weight: bold;
+}
+.basket-item__total {
+    margin-left: 100px;
+}
+
+.basket-item__count button {
+    padding: 0 5px
 }
