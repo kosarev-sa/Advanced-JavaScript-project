@@ -12,35 +12,22 @@
     <header>
         <h1 class="title">origShop: authentic project</h1>
         <div class="search">
-            <input type="text" class="goods-search" v-model="searchLine"/>
-            <button class="search-button" type="button">Искать</button>
+            <span class="title">Поиск:</span>
+            <search-component v-model="searchLine"></search-component>
         </div>
         <div class="actions">
-            <button @click="setCartDisplay" class="cart-button" type="button">КОРЗИНА</button>
+            <custom-button v-on:click="setCartDisplay">КОРЗИНА</custom-button>
         </div>
     </header>
     <main>
         <br>
         <div v-if="items.length" class="goods-list">
-            <div class="goods-item" v-for="item in items">
-                <h3>{{ item.product_name }}</h3>
-                <p>{{ item.price }}</p>
-            </div>
+            <goods-item v-for="item in filteredItems" v-bind:item="item" ></goods-item>
         </div>
         <div v-else>Нет данных</div>
     </main>
-    <div v-if="isVisibleCart" class="fixed-area">
-        <div class="basket-card">
-            <div class="basket-card__header">
-                <h1 class="basket-card__header__title">Basket card</h1>
-                <div @click="setCartDisplay" class="basket-card__header__delete-icon"></div>
-            </div>
-            <div class="basket-card__content">
-                basket info
-            </div>
-        </div>
-    </div>
-    <div>{{ searchLine }}</div>
+    <basket-goods v-if="isVisibleCart" v-on:closeclick="setCartDisplay"></basket-goods>
+<!--    <div>{{ searchLine }}</div>-->
 </div>
 </body>
 </html>
