@@ -1,0 +1,122 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body, #app {
+    width: 100%;
+    height: 100%;
+}
+
+#app {
+    grid-template-rows: max-content auto;
+    gap: 60px;
+    display: grid;
+}
+
+header {
+    height: 100px;
+    display: grid;
+    background-color: gray;
+    margin-top: 40px;
+}
+
+.title {
+    color: red;
+    padding: 10px;
+    text-shadow: 3px 3px 3px #000;
+    text-align: center;
+}
+
+.actions {
+    padding: 10px;
+}
+
+button {
+    padding: 5px;
+    background-color: dimgrey;
+    color: lightpink;
+    text-shadow: 2px 2px 1px indigo;
+    /*margin-top: 40px;*/
+    /*margin-left: 100px;*/
+}
+
+.goods-list {
+    display: flex;
+    justify-content: center;
+    text-align: right;
+    gap: 40px;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.goods-item {
+    width: 250px;
+    height: 250px;
+    padding: 10px;
+    box-sizing: border-box;
+    outline: 2px solid gray;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.goods-search {
+    height: 36px
+}
+
+.fixed-area {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0, 0.5);
+}
+
+.basket-card {
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    display: grid;
+    grid-template-rows: max-content auto;
+}
+
+.basket-card__header {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto max-content;
+}
+
+.basket-card__header__title {
+    padding: 10px
+}
+
+.basket-card__header__delete-icon {
+    background-image: url("pics/kindpng_2004862.png");
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.basket-card__content {
+    padding: 10px;
+}
+
+.basket-item {
+    padding: 10px;
+    display: flex;
+    gap: 30px
+}
+.basket-item__title {
+    font-weight: bold;
+}
+.basket-item__total {
+    margin-left: 100px;
+}
+
+.basket-item__count button {
+    padding: 0 5px
+}
